@@ -169,53 +169,100 @@
   </div>
 </section>
 
+<body>
+  <!-- ... Header & Nav Tetap Sama ... -->
 
   <section id="produk">
     <h2 style="text-align:center;">🍹 Pilih Minuman Coklat Favoritmu!</h2>
     <p style="text-align:center; font-size:16px; color:#6D4C41;">Rasa coklat yang lumer di mulut, segar dinikmati kapan saja! Klik untuk melihat detailnya.</p>
 
-    <div class="product" onclick="showProductInfo('coklatOriginal')">🍫 <strong>Es Coklat Original</strong><br><small>Rasa klasik yang tak pernah salah!</small></div>
-    <div class="product" onclick="showProductInfo('coklatOreo')">🍪 <strong>Es Coklat Oreo</strong><br><small>Dengan biskuit renyah di dalamnya!</small></div>
-    <div class="product" onclick="showProductInfo('coklatKeju')">🧀 <strong>Es Coklat Keju</strong><br><small>Paduan manis & gurih yang unik!</small></div>
+    <div id="produkList"></div>
 
-    <div id="coklatOriginal" class="product-detail">
-      <h3>🍫 Es Coklat Original</h3>
-      <p>Minuman coklat klasik dengan rasa autentik dan kesegaran alami, cocok untuk semua kalangan.</p>
-      <p style="color:#D84315;"><strong>Harga: Rp 15.000</strong></p>
-      <img src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/81/2024/09/10/WhatsApp-Image-2024-09-10-at-165729_d20ecc5b-3061382257.jpg" alt="Es Coklat Original" />
-      <button onclick="tambahKeKeranjang('Es Coklat Original', 15000)" class="whatsapp-button" style="background:#6D4C41;">+ Tambah ke Keranjang
-      </button>
-
-    </div>
-
-    <div id="coklatOreo" class="product-detail">
-      <h3>🍪 Es Coklat Oreo</h3>
-      <p>Perpaduan coklat creamy dengan potongan biskuit Oreo yang crunchy dan nikmat.</p>
-      <p style="color:#D84315;"><strong>Harga: Rp 18.000</strong></p>
-      <img src="https://www.dapurkintamani.com/wp-content/uploads/2021/06/oreo-milkshake.webp" alt="Es Coklat Oreo" />
-      <button onclick="tambahKeKeranjang('Es Coklat Original', 15000)" class="whatsapp-button" style="background:#6D4C41;">+ Tambah ke Keranjang
-      </button>
-
-    </div>
-
-    <div id="coklatKeju" class="product-detail">
-      <h3>🧀 Es Coklat Keju</h3>
-      <p>Coklat lembut dengan topping keju premium yang lumer di mulut, favorit pelanggan kami!</p>
-      <p style="color:#D84315;"><strong>Harga: Rp 10.000</strong></p>
-      <img src="https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/7d77ad0f-4762-407d-9f73-ed8d9d39873f_Go-Biz_20230218_125110.jpeg" alt="Es Coklat Keju" />
-      <button onclick="tambahKeKeranjang('Es Coklat Original', 15000)" class="whatsapp-button" style="background:#6D4C41;">+ Tambah ke Keranjang
-      </button>
-    </div>
-
-    <section id="keranjang" style="max-width:600px; margin:50px auto; padding:30px 20px; background:#fff3e0; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); display:none;">
-    <h2 style="text-align:center; color:#4E342E;">🛍️ Keranjang Belanja</h2>
-
-    <ul id="daftarKeranjang" style="list-style:none; padding:0; color:#5D4037; font-size:16px;"></ul>
-
-    <p><strong>Total:</strong> <span id="totalHarga">Rp 0</span></p>
-
-    <a id="checkoutBtn" href="#" target="_blank" class="whatsapp-button" style="margin-top:10px;">Checkout via WhatsApp</a>
+    <section id="keranjang" style="display:none; margin-top:40px;">
+      <h2>🛍️ Keranjang Belanja</h2>
+      <ul id="daftarKeranjang"></ul>
+      <p><strong>Total:</strong> <span id="totalHarga">Rp 0</span></p>
+      <a id="checkoutBtn" class="whatsapp-button" href="#" target="_blank">Checkout via WhatsApp</a>
+    </section>
   </section>
+
+<script>
+  const produkData = [
+    {
+      nama: "Es Coklat Original",
+      harga: 15000,
+      deskripsi: "Minuman coklat klasik yang segar dan creamy.",
+      gambar: "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/81/2024/09/10/WhatsApp-Image-2024-09-10-at-165729_d20ecc5b-3061382257.jpg"
+    },
+    {
+      nama: "Es Coklat Oreo",
+      harga: 18000,
+      deskripsi: "Coklat dengan sensasi renyah biskuit Oreo.",
+      gambar: "https://www.dapurkintamani.com/wp-content/uploads/2021/06/oreo-milkshake.webp"
+    },
+    {
+      nama: "Es Coklat Keju",
+      harga: 10000,
+      deskripsi: "Perpaduan lezat coklat dan keju lumer.",
+      gambar: "https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/7d77ad0f-4762-407d-9f73-ed8d9d39873f_Go-Biz_20230218_125110.jpeg"
+    }
+  ];
+
+  const produkList = document.getElementById("produkList");
+  const keranjang = [];
+
+  function renderProduk() {
+    produkData.forEach((produk, index) => {
+      const div = document.createElement("div");
+      div.className = "product";
+      div.innerHTML = `
+        <h3>${produk.nama}</h3>
+        <p>${produk.deskripsi}</p>
+        <p><strong>Harga:</strong> Rp ${produk.harga.toLocaleString()}</p>
+        <img src="${produk.gambar}" style="width:100%; max-width:300px; border-radius:10px;" />
+        <br>
+        <button class="whatsapp-button" onclick="tambahKeKeranjang(${index})">+ Tambah ke Keranjang</button>
+      `;
+      produkList.appendChild(div);
+    });
+  }
+
+  function tambahKeKeranjang(index) {
+    keranjang.push(produkData[index]);
+    updateKeranjang();
+    alert(`${produkData[index].nama} ditambahkan ke keranjang!`);
+  }
+
+  function updateKeranjang() {
+    const daftarKeranjang = document.getElementById("daftarKeranjang");
+    const totalHarga = document.getElementById("totalHarga");
+    const checkoutBtn = document.getElementById("checkoutBtn");
+    const keranjangSection = document.getElementById("keranjang");
+
+    daftarKeranjang.innerHTML = "";
+    let total = 0;
+    keranjang.forEach((item, i) => {
+      const li = document.createElement("li");
+      li.textContent = `${i + 1}. ${item.nama} - Rp ${item.harga.toLocaleString()}`;
+      daftarKeranjang.appendChild(li);
+      total += item.harga;
+    });
+
+    totalHarga.textContent = "Rp " + total.toLocaleString();
+    keranjangSection.style.display = keranjang.length ? "block" : "none";
+
+    const pesan = keranjang.map((item, i) => `${i + 1}. ${item.nama} - Rp ${item.harga.toLocaleString()}`).join("%0A");
+    const totalMsg = `%0A%0ATotal: Rp ${total.toLocaleString()}`;
+    checkoutBtn.href = `https://wa.me/6285962874767?text=Halo%2C%20saya%20ingin%20memesan%3A%0A${pesan}${totalMsg}`;
+  }
+
+  window.onload = () => {
+    renderProduk();
+    showPage("profil");
+  };
+</script>
+
+  
   </section>
 
   <section id="cara">
