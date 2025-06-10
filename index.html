@@ -222,7 +222,7 @@
         <p><strong>Harga:</strong> Rp ${produk.harga.toLocaleString()}</p>
         <img src="${produk.gambar}" style="width:100%; max-width:300px; border-radius:10px;" />
         <br>
-        <button class="whatsapp-button" onclick="tambahKeKeranjang(${index})">pesan via whatsapp</button>
+        <button class="whatsapp-button" onclick="tambahKeKeranjang(${index})">pesan via watsap</button>
       `;
       produkList.appendChild(div);
     });
@@ -254,7 +254,7 @@
 
     const pesan = keranjang.map((item, i) => `${i + 1}. ${item.nama} - Rp ${item.harga.toLocaleString()}`).join("%0A");
     const totalMsg = `%0A%0ATotal: Rp ${total.toLocaleString()}`;
-    checkoutBtn.href = `https://wa.me/6285179764812'${pesan}${totalMsg}`;
+    checkoutBtn.href = `https://wa.me/6285962874767?text=Halo%2C%20saya%20ingin%20memesan%3A%0A${pesan}${totalMsg}`;
   }
 
   window.onload = () => {
@@ -296,7 +296,7 @@
 
   <div style="display:flex; flex-direction: column; gap:20px; font-size:18px; color:#5D4037;">
 
-    <a href="https://wa.me/6285179764812" target="_blank" rel="noopener noreferrer" 
+    <a href="https://wa.me/6285162874767" target="_blank" rel="noopener noreferrer" 
        style="display:flex; align-items:center; gap:12px; background:#25D366; color:white; text-decoration:none; padding:12px 20px; border-radius:8px; font-weight:bold; box-shadow: 0 3px 8px rgba(37, 211, 102, 0.6); transition: background 0.3s;">
       <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" style="width:28px; height:28px;" />
       WhatsApp: 0812-3456-7890
@@ -349,7 +349,7 @@
       .map((item, i) => `${i + 1}. ${item.nama} - Rp ${item.harga.toLocaleString()}`)
       .join("%0A");
     const totalMsg = `%0A%0ATotal: Rp ${total.toLocaleString()}`;
-    checkoutBtn.href = `https://wa.me/6285179764812'?text=Halo%2C%20saya%20ingin%20memesan%20minuman%20coklat${pesan}${totalMsg}`;
+    checkoutBtn.href = `https://wa.me/6285962874767?text=Halo%2C%20saya%20ingin%20memesan%20minuman%20coklat${pesan}${totalMsg}`;
   }
 </script>
 
